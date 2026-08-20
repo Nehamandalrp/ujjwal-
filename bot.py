@@ -267,12 +267,12 @@ def payment_keyboard():
         ],
         [
             InlineKeyboardButton(
-                "✅ UPI",
-                callback_data="payment_upi"
+                "✅ QR",
+                callback_data="payment_qr"
             ),
             InlineKeyboardButton(
-                "✅ Revolut",
-                callback_data="payment_revolut"
+                "✅ QR",
+                callback_data="payment_qr"
             ),
         ],
         [
@@ -513,7 +513,7 @@ async def button_handler(
         ]
 
         await query.edit_message_text(
-            "❓ @raniivideo , @sanju100K \n\n"
+            "❓ @rahulmax , @Video_Ab \n\n"
             "Please contact our support team. And Wait For Reply ",
             reply_markup=InlineKeyboardMarkup(keyboard)
         )
