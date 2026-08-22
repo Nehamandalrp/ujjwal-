@@ -1,15 +1,15 @@
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import (
+    Application,
+    CommandHandler,
+    CallbackQueryHandler,
+    MessageHandler,
+    ContextTypes,
+    filters,
+)
 import os
 from threading import Thread
 from flask import Flask
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
-from telegram.ext import (
-    Application,
-    CallbackQueryHandler,
-    CommandHandler,
-    ContextTypes,
-    MessageHandler,
-    filters,
-)
 
 # Dummy Web Server (Render ko 24/7 active rakhne ke liye)
 web_app = Flask("")
@@ -29,100 +29,45 @@ def keep_alive():
     t = Thread(target=run_web)
     t.daemon = True
     t.start()
-
-
 # ============================================================
 # CONFIGURATION
 # ============================================================
 
-BOT_TOKEN = "8824636239:AAHGAqQZXU_8DIWJuc-XGhgxtmlwb9C6W5E"
+BOT_TOKEN = "8990029460:AAFo8NpBUU6nOCmp5-YR1jyI52e3vi6QP2s"
 
 # Admin ka numeric Telegram Chat ID
 ADMIN_CHAT_ID = 8200494184
 
 
 # ============================================================
-# CATEGORY DETAILS WITH IMAGES
+# CATEGORY DETAILS
 # ============================================================
 
 CATEGORY_DETAILS = {
     "category_1": {
         "name": "C------P",
-        "text": (
-            "🔥 300+ MEDIA / 700+ MEDIA\n"
-            "🔥 LIFETIME MEMBERSHIP\n\n"
-            "✅ SMALL PACK RS • 299₹/-\n"
-            "✅ BIG PACK RS • 499₹/-\n\n"
-            "INTERNATIONAL PRICE 👇\n"
-            "✅ SMALL PACK • 15$\n"
-            "✅ BIG PACK • 25$"
-        ),
-        "image": "qr.jpg",
+        "text": "🔥300+ 𝗠𝗘𝗗𝗜𝗔 / 700+  𝗠𝗘𝗗𝗜𝗔.\n🔥 𝗟𝗜𝗙𝗘𝗧𝗜𝗠𝗘 𝗠𝗘𝗠𝗕𝗘𝗥𝗦𝗛𝗜𝗣 \n✅ ꜱᴍᴀʟʟ ᴘᴀᴄᴋ 𝗥𝗦 • 299₹/-\n✅ ʙɪɢ ᴘᴀᴄᴋ 𝗥𝗦 • 499₹/-\nɪɴᴛᴇʀɴᴀᴛɪᴏɴᴀʟ ᴘʀɪᴄᴇ 👇\n✅ ꜱᴍᴀʟʟ  PACK •  15$\n✅ ʙɪɢ ᴘᴀᴄᴋ •  25$\n  \n   ",
+        
     },
     "category_2": {
         "name": "ᴍᴏᴍ sᴏɴ",
-        "text": (
-            "🔥 300+ MEDIA / 700+ MEDIA\n"
-            "🔥 LIFETIME MEMBERSHIP\n\n"
-            "✅ SMALL PACK RS • 299₹/-\n"
-            "✅ BIG PACK RS • 499₹/-\n\n"
-            "INTERNATIONAL PRICE 👇\n"
-            "✅ SMALL PACK • 15$\n"
-            "✅ BIG PACK • 25$"
-        ),
-        "image": "qr2.jpg",
+        "text": "🔥300+ 𝗠𝗘𝗗𝗜𝗔 / 700+  𝗠𝗘𝗗𝗜𝗔.\n🔥 𝗟𝗜𝗙𝗘𝗧𝗜𝗠𝗘 𝗠𝗘𝗠𝗕𝗘𝗥𝗦𝗛𝗜𝗣 \n\n✅ ꜱᴍᴀʟʟ ᴘᴀᴄᴋ 𝗥𝗦 • 299₹/-\n✅ ʙɪɢ ᴘᴀᴄᴋ 𝗥𝗦 • 499₹/-\nɪɴᴛᴇʀɴᴀᴛɪᴏɴᴀʟ ᴘʀɪᴄᴇ 👇\n✅ ꜱᴍᴀʟʟ  PACK •  15$\n✅ ʙɪɢ ᴘᴀᴄᴋ •  25$ \n  \n  ",
     },
     "category_3": {
         "name": "ʀ@2ᴘ€",
-        "text": (
-            "🔥 300+ MEDIA / 700+ MEDIA\n"
-            "🔥 LIFETIME MEMBERSHIP\n\n"
-            "✅ SMALL PACK RS • 299₹/-\n"
-            "✅ BIG PACK RS • 499₹/-\n\n"
-            "INTERNATIONAL PRICE 👇\n"
-            "✅ SMALL PACK • 15$\n"
-            "✅ BIG PACK • 25$"
-        ),
-        "image": "qr3.jpg",
+        "text": "🔥300+ 𝗠𝗘𝗗𝗜𝗔 / 700+  𝗠𝗘𝗗𝗜𝗔.\n🔥 𝗟𝗜𝗙𝗘𝗧𝗜𝗠𝗘 𝗠𝗘𝗠𝗕𝗘𝗥𝗦𝗛𝗜𝗣 \n\n✅ ꜱᴍᴀʟʟ ᴘᴀᴄᴋ 𝗥𝗦 • 299₹/-\n✅ ʙɪɢ ᴘᴀᴄᴋ 𝗥𝗦 • 499₹/-\nɪɴᴛᴇʀɴᴀᴛɪᴏɴᴀʟ ᴘʀɪᴄᴇ 👇\n✅ ꜱᴍᴀʟʟ  PACK •  15$\n✅ ʙɪɢ ᴘᴀᴄᴋ •  25$–– \n  \n  ",
     },
     "category_4": {
         "name": "ᴅᴇꜱɪ ᴍᴍꜱ",
-        "text": (
-            "🔥 300+ MEDIA / 700+ MEDIA\n"
-            "🔥 LIFETIME MEMBERSHIP\n\n"
-            "✅ SMALL PACK RS • 299₹/-\n"
-            "✅ BIG PACK RS • 499₹/-\n\n"
-            "INTERNATIONAL PRICE 👇\n"
-            "✅ SMALL PACK • 15$\n"
-            "✅ BIG PACK • 25$"
-        ),
-        "image": "qr4.jpg",
+        "text": "🔥300+ 𝗠𝗘𝗗𝗜𝗔 / 700+  𝗠𝗘𝗗𝗜𝗔.\n🔥 𝗟𝗜𝗙𝗘𝗧𝗜𝗠𝗘 𝗠𝗘𝗠𝗕𝗘𝗥𝗦𝗛𝗜𝗣 \n\n✅ ꜱᴍᴀʟʟ ᴘᴀᴄᴋ 𝗥𝗦 • 299₹/-\n✅ ʙɪɢ ᴘᴀᴄᴋ 𝗥𝗦 • 499₹/-\nɪɴᴛᴇʀɴᴀᴛɪᴏɴᴀʟ ᴘʀɪᴄᴇ 👇\n✅ ꜱᴍᴀʟʟ  PACK •  15$\n✅ ʙɪɢ ᴘᴀᴄᴋ •  25$\n  \n  ",
     },
     "category_5": {
         "name": "sᴄʜᴏᴏʟ ᴠɪᴅᴇᴏ",
-        "text": (
-            "🔥 300+ MEDIA / 700+ MEDIA\n"
-            "🔥 LIFETIME MEMBERSHIP\n\n"
-            "✅ SMALL PACK RS • 299₹/-\n"
-            "✅ BIG PACK RS • 499₹/-\n\n"
-            "INTERNATIONAL PRICE 👇\n"
-            "✅ SMALL PACK • 15$\n"
-            "✅ BIG PACK • 25$"
-        ),
-        "image": "qr5.jpg",
+        "text": "🔥300+ 𝗠𝗘𝗗𝗜𝗔 / 700+  𝗠𝗘𝗗𝗜𝗔.\n🔥 𝗟𝗜𝗙𝗘𝗧𝗜𝗠𝗘 𝗠𝗘𝗠𝗕𝗘𝗥𝗦𝗛𝗜𝗣 \n\n✅ ꜱᴍᴀʟʟ ᴘᴀᴄᴋ 𝗥𝗦 • 299₹/-\n✅ ʙɪɢ ᴘᴀᴄᴋ 𝗥𝗦 • 499₹/-\nɪɴᴛᴇʀɴᴀᴛɪᴏɴᴀʟ ᴘʀɪᴄᴇ 👇\n✅ ꜱᴍᴀʟʟ  PACK •  15$\n✅ ʙɪɢ ᴘᴀᴄᴋ •  25$ \n  \n  ",
     },
     "category_6": {
         "name": "ꜰᴀɪᴍʟʏ sᴘʏ",
-        "text": (
-            "🔥 300+ MEDIA / 700+ MEDIA\n"
-            "🔥 LIFETIME MEMBERSHIP\n\n"
-            "✅ SMALL PACK RS • 299₹/-\n"
-            "✅ BIG PACK RS • 499₹/-\n\n"
-            "INTERNATIONAL PRICE 👇\n"
-            "✅ SMALL PACK • 15$\n"
-            "✅ BIG PACK • 25$"
-        ),
-        "image": "qr6.jpg",
+        "text": "🔥300+ 𝗠𝗘𝗗𝗜𝗔 / 700+  𝗠𝗘𝗗𝗜𝗔.\n🔥 𝗟𝗜𝗙𝗘𝗧𝗜𝗠𝗘 𝗠𝗘𝗠𝗕𝗘𝗥𝗦𝗛𝗜𝗣 \n \n✅ ꜱᴍᴀʟʟ ᴘᴀᴄᴋ 𝗥𝗦 • 299₹/-\n✅ ʙɪɢ ᴘᴀᴄᴋ 𝗥𝗦 • 499₹/-\nɪɴᴛᴇʀɴᴀᴛɪᴏɴᴀʟ ᴘʀɪᴄᴇ 👇\n✅ ꜱᴍᴀʟʟ  PACK •  15$\n✅ ʙɪɢ ᴘᴀᴄᴋ •  25$ \n  \n  ",
     },
 }
 
@@ -141,28 +86,41 @@ Username:
 sanjudox
 
 Step 1️⃣ Send Payment
+
 Step 2️⃣ Send Payment Screenshot For Verification
+
 Step 3️⃣ Wait For Reply
 """
 
 PAYPAL_DETAILS = """
 💳 PayPal
 
-Username - @Rajkamalhero   
-
+PayPal:
+Username - @Rajkamalhero  
 Step 1️⃣ Send Payment
+
 Step 2️⃣ Send Payment Screenshot For Verification
+
 Step 3️⃣ Wait For Reply
 """
 
 REMITLY_DETAILS = """
 💳 Remitly to UPI 
 
-UPI: sanjubaba-international@cnrb
+I give u UPI- sanjubaba-international@cnrb
 
 Step 1️⃣ Send Payment
+
 Step 2️⃣ Send Payment Screenshot For Verification
+
 Step 3️⃣ Wait For Reply
+
+
+
+"""
+
+QR_DETAILS = """
+💳 QR Payment
 """
 
 UPI_DETAILS = """
@@ -175,34 +133,41 @@ sanjubaba-international@cnrb
 REVOLUT_DETAILS = """
 💳 Revolut
 
-Contact @Raniivideo directly.
+@Raniivideo Dm me 
 """
 
 CRYPTO_DETAILS = """
 💳 USDT / Bitcoin / Crypto
 
-⭐ USDT Address with Network 🛜 
-ETH -  0x22c9fe0319ddad833f3fe13fb942140aa79dff34
-SOL -  F7ANEJ8vfyFhR4VEnmobyeBPWqeJEWTLbWUgD8dr2UNe
-TRX -  TBGsETLni6zfKbqhWLNanJ8DtswXgMcXoq 
+⭐ USDT Address  with Network 🛜 
 
-⭐ BITCOIN Address with Network 🛜 
-BTC -  15cxVVopFtrG3wxsjJEYj5LTEFFyb6sQ7P
-ETH -  0x22c9fe0319ddad833f3fe13fb942140aa79dff34 
-BSC -  0x22c9fe0319ddad833f3fe13fb942140aa79dff34
+ETH -   0x22c9fe0319ddad833f3fe13fb942140aa79dff34
+SOL -     F7ANEJ8vfyFhR4VEnmobyeBPWqeJEWTLbWUgD8dr2UNe
+TRX -   TBGsETLni6zfKbqhWLNanJ8DtswXgMcXoq 
+
+
+Bitcoin Address:
+⭐ BITCOIN Address  with Network 🛜 
+
+
+BTC -   15cxVVopFtrG3wxsjJEYj5LTEFFyb6sQ7P
+ETH -     0x22c9fe0319ddad833f3fe13fb942140aa79dff34 
+BSC -   0x22c9fe0319ddad833f3fe13fb942140aa79dff34
+
+
 """
 
 PACKAGE_DETAILS = """
-📦 Mega All-In-One Package
+📦 All Package \n
+\n⭐ᴄʜɪʟᴅ (ᴄʜᴀɴɴᴇʟ+ ꜰɪʟᴇ) \n⭐ᴍᴏᴍ ꜱᴏɴ ( ɢʀᴏᴜᴘ+ ꜰɪʟᴇ) \n⭐ʀ@ᴘᴇ ( ꜰɪʟᴇ ) \n⭐ꜱɪꜱ ʙʀᴏᴛʜᴇʀ ( ɢʀᴏᴜᴘ) \n⭐ᴠɪʀᴀʟ ᴍᴍꜱ  ( ɢʀᴏᴜᴘ) \n⭐ᴅᴇꜱɪ ᴍᴍꜱ ( ɢʀᴏᴜᴘ) \n⭐ᴅᴇꜱɪ ( ɢʀᴏᴜᴘ) \n⭐ ꜰᴀɪᴍʟʏ ꜱᴘʏ (ɢʀᴏᴜᴘ) \n⭐ ꜱᴄʜᴏᴏʟ ᴠɪᴅᴇᴏ (ɢʀᴏᴜᴘ) \n⭐ ᴄᴘ ɢᴜʏ (ɢʀᴏᴜᴘ) \n⭐ ᴛᴀᴍɪʟ (ɢʀᴏᴜᴘ) \n⭐ ʟᴇꜱʙɪᴀɴ (ɢʀᴏᴜᴘ) \n⭐ ꜰʟᴀꜱʜɪɴɢ  (ɢʀᴏᴜᴘ) \n⭐ ꜱɴᴀᴘ ɢꜰ ʙꜰ(ɢʀᴏᴜᴘ) \n⭐  ᴄᴄᴛᴠ ᴄᴀᴍ  (ɢʀᴏᴜᴘ) \n⭐ ɪɴᴅɪᴀɴ ʙʜᴀʙʜɪ  (ɢʀᴏᴜᴘ) \n⭐ ᴅᴀʀᴋ ᴡᴇʙ \n⭐ ꜰᴏᴏᴛ ᴊᴏʙ \n⭐ʙʟᴏᴡ ᴊᴏʙ/ꜱᴜᴄᴋɪɴɢ \n⭐ʀᴜꜱꜱɪᴀɴ (ɢʀᴏᴜᴘ)
 
-⭐ Complete Premium Channel Access
-⭐ Unlimited Media Downloads
-⭐ Direct High-Speed Cloud Drive Access
+\n ᴘʀɪᴄᴇ - 1999₹ 🪙  @Raniivideo 
+\n ɪɴᴛᴇʀɴᴀᴛɪᴏɴᴀʟ ᴘʀɪᴄᴇ - 99$💰
 
-PRICE - 1999₹ 🪙  @Raniivideo 
-INTERNATIONAL PRICE - 99$ 💰
+\n 500 ɢʙ ᴍᴇɢᴀ ʟɪɴᴋ ꜰʀᴇᴇ📍
+\nIf Are you interested \n 👇
 
-📍 500 GB Cloud Storage Included Free
+
 """
 
 
@@ -210,34 +175,52 @@ INTERNATIONAL PRICE - 99$ 💰
 # KEYBOARDS
 # ============================================================
 
-
 def main_menu_keyboard():
     keyboard = [
         [
             InlineKeyboardButton(
-                "🌟 Premium VIP", callback_data="category_1"
+                "C------P",
+                callback_data="category_1"
             ),
             InlineKeyboardButton(
-                "🎬 Exclusive Collection", callback_data="category_2"
+                "ᴍᴏᴍ sᴏɴ",
+                callback_data="category_2"
             ),
         ],
         [
             InlineKeyboardButton(
-                "🚀 Super Saver", callback_data="category_3"
+                "ʀ@2ᴘ€",
+                callback_data="category_3"
             ),
-            InlineKeyboardButton("💎 Ultra Access", callback_data="category_4"),
-        ],
-        [
-            InlineKeyboardButton("⚡ Special Bundle", callback_data="category_5"),
-            InlineKeyboardButton("👑 Pro Unlimited", callback_data="category_6"),
+            InlineKeyboardButton(
+                "ᴅᴇꜱɪ ᴍᴍꜱ",
+                callback_data="category_4"
+            ),
         ],
         [
             InlineKeyboardButton(
-                "📦 All Package", callback_data="all_package"
+                "sᴄʜᴏᴏʟ ᴠɪᴅᴇᴏ",
+                callback_data="category_5"
+            ),
+            InlineKeyboardButton(
+                "ꜰᴀɪᴍʟʏ sᴘʏ",
+                callback_data="category_6"
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                "📦 All Package",
+                callback_data="all_package"
             )
         ],
-        [InlineKeyboardButton("☎️ Helpline", callback_data="helpline")],
+        [
+            InlineKeyboardButton(
+                "☎️ Helpline",
+                callback_data="helpline"
+            )
+        ],
     ]
+
     return InlineKeyboardMarkup(keyboard)
 
 
@@ -245,38 +228,71 @@ def category_keyboard():
     keyboard = [
         [
             InlineKeyboardButton(
-                "💳 How To Send Payment", callback_data="payment_menu"
+                "💳 How To Send Payment",
+                callback_data="payment_menu"
             )
         ],
-        [InlineKeyboardButton("🏠 Main Menu", callback_data="main_menu")],
+        [
+            InlineKeyboardButton(
+                "🏠 Main Menu",
+                callback_data="main_menu"
+            )
+        ],
     ]
+
     return InlineKeyboardMarkup(keyboard)
 
 
 def payment_keyboard():
     keyboard = [
         [
-            InlineKeyboardButton("✅ Binance", callback_data="payment_binance"),
-            InlineKeyboardButton("✅ PayPal", callback_data="payment_paypal"),
-        ],
-        [
-            InlineKeyboardButton("✅ Remitly", callback_data="payment_remitly"),
-            InlineKeyboardButton("✅ QR", callback_data="payment_qr"),
-        ],
-        [
-            InlineKeyboardButton("✅ UPI", callback_data="payment_upi"),
-            InlineKeyboardButton("✅ Revolut", callback_data="payment_revolut"),
+            InlineKeyboardButton(
+                "✅ Binance",
+                callback_data="payment_binance"
+            ),
+            InlineKeyboardButton(
+                "✅ PayPal",
+                callback_data="payment_paypal"
+            ),
         ],
         [
             InlineKeyboardButton(
-                "✅ USDT / Bitcoin / Crypto", callback_data="payment_crypto"
+                "✅ Remitly",
+                callback_data="payment_remitly"
+            ),
+            InlineKeyboardButton(
+                "✅ QR",
+                callback_data="payment_qr"
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                "✅ UPI",
+                callback_data="payment_upi"
+            ),
+            InlineKeyboardButton(
+                "✅ Revolut",
+                callback_data="payment_revolut"
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                "✅ USDT / Bitcoin / Crypto",
+                callback_data="payment_crypto"
             )
         ],
         [
-            InlineKeyboardButton("⬅️ Back", callback_data="back_category"),
-            InlineKeyboardButton("🏠 Main Menu", callback_data="main_menu"),
+            InlineKeyboardButton(
+                "⬅️ Back",
+                callback_data="back_category"
+            ),
+            InlineKeyboardButton(
+                "🏠 Main Menu",
+                callback_data="main_menu"
+            ),
         ],
     ]
+
     return InlineKeyboardMarkup(keyboard)
 
 
@@ -284,15 +300,22 @@ def payment_page_keyboard():
     keyboard = [
         [
             InlineKeyboardButton(
-                "📸 Send Payment Screenshot For Verification",
-                url="https://t.me/Raniivideo",
+                "📸 Send Payment Screenshot For verification",
+                url="https://t.me/Raniivideo"
             )
         ],
         [
-            InlineKeyboardButton("⬅️ Back", callback_data="payment_menu"),
-            InlineKeyboardButton("🏠 Main Menu", callback_data="main_menu"),
+            InlineKeyboardButton(
+                "⬅️ Back",
+                callback_data="payment_menu"
+            ),
+            InlineKeyboardButton(
+                "🏠 Main Menu",
+                callback_data="main_menu"
+            ),
         ],
     ]
+
     return InlineKeyboardMarkup(keyboard)
 
 
@@ -300,116 +323,133 @@ def payment_page_keyboard():
 # START
 # ============================================================
 
+async def start(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE
+):
+    text = "Which Category Do You Want?"
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = "Welcome! Which Category Do You Want?"
-    await update.message.reply_text(text, reply_markup=main_menu_keyboard())
+    await update.message.reply_text(
+        text,
+        reply_markup=main_menu_keyboard()
+    )
 
 
 # ============================================================
 # CALLBACK HANDLER
 # ============================================================
 
-
-async def send_category_post(
-    query, category, context: ContextTypes.DEFAULT_TYPE
+async def button_handler(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE
 ):
-    """Helper function to send category photo with text caption"""
-    text = f"📢 {category['name']}\n\n{category['text']}"
-    image_file = category.get("image")
-
-    # Purana text message delete karke photo ke sath new message bhejte hain
-    try:
-        await query.message.delete()
-    except Exception:
-        pass
-
-    if image_file and os.path.exists(image_file):
-        with open(image_file, "rb") as photo:
-            await context.bot.send_photo(
-                chat_id=query.from_user.id,
-                photo=photo,
-                caption=text,
-                reply_markup=category_keyboard(),
-            )
-    else:
-        # Agar photo file nahi milti to text message bhej dega
-        await context.bot.send_message(
-            chat_id=query.from_user.id,
-            text=text,
-            reply_markup=category_keyboard(),
-        )
-
-
-async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
+
     await query.answer()
+
     data = query.data
 
+    # --------------------------------------------------------
+    # MAIN MENU
+    # --------------------------------------------------------
+
     if data == "main_menu":
-        try:
-            await query.message.delete()
-        except Exception:
-            pass
-        await context.bot.send_message(
-            chat_id=query.from_user.id,
-            text="Which Category Do You Want?",
-            reply_markup=main_menu_keyboard(),
+
+        await query.edit_message_text(
+            "Which Category Do You Want?",
+            reply_markup=main_menu_keyboard()
         )
+
         return
 
-    # CATEGORY CLICKED
+    # --------------------------------------------------------
+    # CATEGORY
+    # --------------------------------------------------------
+
     if data in CATEGORY_DETAILS:
+
         category = CATEGORY_DETAILS[data]
+
         context.user_data["selected_category"] = data
-        await send_category_post(query, category, context)
+
+        text = (
+            f"📢 {category['name']}\n\n"
+            f"{category['text']}"
+        )
+
+        await query.edit_message_text(
+            text,
+            reply_markup=category_keyboard()
+        )
+
         return
+
+    # --------------------------------------------------------
+    # PAYMENT MENU
+    # --------------------------------------------------------
 
     if data == "payment_menu":
-        try:
-            await query.message.delete()
-        except Exception:
-            pass
-        await context.bot.send_message(
-            chat_id=query.from_user.id,
-            text="💳 Select Your Payment Method",
-            reply_markup=payment_keyboard(),
+
+        await query.edit_message_text(
+            "💳 Select Your Payment Method",
+            reply_markup=payment_keyboard()
         )
+
         return
+
+    # --------------------------------------------------------
+    # BACK TO CATEGORY
+    # --------------------------------------------------------
 
     if data == "back_category":
-        category_id = context.user_data.get("selected_category", "category_1")
+
+        category_id = context.user_data.get(
+            "selected_category",
+            "category_1"
+        )
+
         category = CATEGORY_DETAILS[category_id]
-        await send_category_post(query, category, context)
+
+        text = (
+            f"📢 {category['name']}\n\n"
+            f"{category['text']}"
+        )
+
+        await query.edit_message_text(
+            text,
+            reply_markup=category_keyboard()
+        )
+
         return
 
+    # --------------------------------------------------------
+    # QR PAYMENT
+    # --------------------------------------------------------
+
     if data == "payment_qr":
+
         caption = (
             "💳 QR Payment\n\n"
             "Step 1️⃣ Send Payment\n\n"
             "Step 2️⃣ Send Payment Screenshot For Verification\n\n"
             "Step 3️⃣ Wait For Reply"
         )
-        try:
-            await query.message.delete()
-        except Exception:
-            pass
 
-        if os.path.exists("Qr.jpg"):
-            with open("Qr.jpg", "rb") as qr:
-                await context.bot.send_photo(
-                    chat_id=query.from_user.id,
-                    photo=qr,
-                    caption=caption,
-                    reply_markup=payment_page_keyboard(),
-                )
-        else:
-            await context.bot.send_message(
+        await query.message.delete()
+
+        with open("Qr.jpg", "rb") as qr:
+            await context.bot.send_photo(
                 chat_id=query.from_user.id,
-                text=f"{caption}\n\n(Note: Qr.jpg image file not found on server)",
-                reply_markup=payment_page_keyboard(),
+                photo=qr,
+                caption=caption,
+                reply_markup=payment_page_keyboard()
             )
+
         return
+
+    # --------------------------------------------------------
+    # OTHER PAYMENT METHODS
+    # --------------------------------------------------------
 
     payment_details = {
         "payment_binance": BINANCE_DETAILS,
@@ -421,53 +461,63 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     }
 
     if data in payment_details:
-        try:
-            await query.message.delete()
-        except Exception:
-            pass
-        await context.bot.send_message(
-            chat_id=query.from_user.id,
-            text=payment_details[data],
-            reply_markup=payment_page_keyboard(),
+
+        await query.edit_message_text(
+            payment_details[data],
+            reply_markup=payment_page_keyboard()
         )
+
         return
 
+    # --------------------------------------------------------
+    # ALL PACKAGE
+    # --------------------------------------------------------
+
     if data == "all_package":
+
         keyboard = [
             [
                 InlineKeyboardButton(
-                    "💳 How To Send Payment", callback_data="payment_menu"
+                    "💳 How To Send Payment",
+                    callback_data="payment_menu"
                 )
             ],
-            [InlineKeyboardButton("🏠 Main Menu", callback_data="main_menu")],
+            [
+                InlineKeyboardButton(
+                    "🏠 Main Menu",
+                    callback_data="main_menu"
+                )
+            ],
         ]
-        try:
-            await query.message.delete()
-        except Exception:
-            pass
-        await context.bot.send_message(
-            chat_id=query.from_user.id,
-            text=PACKAGE_DETAILS,
-            reply_markup=InlineKeyboardMarkup(keyboard),
+
+        await query.edit_message_text(
+            PACKAGE_DETAILS,
+            reply_markup=InlineKeyboardMarkup(keyboard)
         )
+
         return
 
+    # --------------------------------------------------------
+    # HELPLINE
+    # --------------------------------------------------------
+
     if data == "helpline":
+
         keyboard = [
-            [InlineKeyboardButton("🏠 Main Menu", callback_data="main_menu")]
+            [
+                InlineKeyboardButton(
+                    "🏠 Main Menu",
+                    callback_data="main_menu"
+                )
+            ]
         ]
-        try:
-            await query.message.delete()
-        except Exception:
-            pass
-        await context.bot.send_message(
-            chat_id=query.from_user.id,
-            text=(
-                "❓ Contact: @raniivideo , @sanju100K\n\n"
-                "Please contact our support team and wait for a reply."
-            ),
-            reply_markup=InlineKeyboardMarkup(keyboard),
+
+        await query.edit_message_text(
+            "❓ @raniivideo , @sanju100K \n\n"
+            "Please contact our support team. And Wait For Reply ",
+            reply_markup=InlineKeyboardMarkup(keyboard)
         )
+
         return
 
 
@@ -475,19 +525,20 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # SCREENSHOT HANDLER
 # ============================================================
 
-
 async def receive_screenshot(
-    update: Update, context: ContextTypes.DEFAULT_TYPE
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE
 ):
+
     if not context.user_data.get("waiting_for_screenshot"):
         return
 
     user = update.effective_user
-    username_text = (
-        f"🔗 Username: @{user.username}"
-        if user.username
-        else "🔗 Username: Not Available"
-    )
+
+    if user.username:
+        username_text = f"🔗 Username: @{user.username}"
+    else:
+        username_text = "🔗 Username: Not Available"
 
     caption = (
         "📸 NEW PAYMENT SCREENSHOT\n\n"
@@ -497,25 +548,36 @@ async def receive_screenshot(
     )
 
     if update.message.photo:
+
         await context.bot.send_photo(
             chat_id=ADMIN_CHAT_ID,
             photo=update.message.photo[-1].file_id,
-            caption=caption,
+            caption=caption
         )
+
         await update.message.reply_text(
-            "✅ Screenshot received successfully.\nYour payment will be verified."
+            "✅ Screenshot received successfully.\n"
+            "Your payment will be verified."
         )
+
     elif update.message.document:
+
         await context.bot.send_document(
             chat_id=ADMIN_CHAT_ID,
             document=update.message.document.file_id,
-            caption=caption,
+            caption=caption
         )
+
         await update.message.reply_text(
             "✅ Payment proof received successfully."
         )
+
     else:
-        await update.message.reply_text("❌ Please send a screenshot/image.")
+
+        await update.message.reply_text(
+            "❌ Please send a screenshot/image."
+        )
+
         return
 
     context.user_data["waiting_for_screenshot"] = False
@@ -525,8 +587,11 @@ async def receive_screenshot(
 # ERROR HANDLER
 # ============================================================
 
+async def error_handler(
+    update: object,
+    context: ContextTypes.DEFAULT_TYPE
+):
 
-async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE):
     print(f"Error: {context.error}")
 
 
@@ -534,24 +599,57 @@ async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE):
 # RUN BOT
 # ============================================================
 
-
 def main():
-    app = Application.builder().token(BOT_TOKEN).build()
 
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CallbackQueryHandler(button_handler))
+    app = (
+        Application.builder()
+        .token(BOT_TOKEN)
+        .build()
+    )
+
+    app.add_handler(
+        CommandHandler("start", start)
+    )
+
+    app.add_handler(
+        CallbackQueryHandler(button_handler)
+    )
+
     app.add_handler(
         MessageHandler(
-            filters.PHOTO | filters.Document.IMAGE, receive_screenshot
+            filters.PHOTO | filters.Document.IMAGE,
+            receive_screenshot
         )
     )
 
     app.add_error_handler(error_handler)
 
     print("🤖 Bot is running...")
-    app.run_polling()
 
+    app.run_polling() 
+
+
+
+# ============================================================
+# AUTOMATIC IMAGE ASSIGNMENT FOR CATEGORIES 1 TO 6
+# (File ke sabse niche ye code paste karein)
+# ============================================================
+
+# Ye code Category 1 se 6 tak apne aap images set kar dega:
+# Category 1 -> Uqr.jpg
+# Category 2 -> qr2.jpg
+# Category 3 -> qr3.jpg
+# Category 4 -> qr4.jpg
+# Category 5 -> qr5.jpg
+# Category 6 -> qr6.jpg
+
+if "CATEGORY_DETAILS" in globals():
+    for i in range(1, 7):
+        cat_key = f"category_{i}"
+        if cat_key in CATEGORY_DETAILS:
+            CATEGORY_DETAILS[cat_key]["image"] = f"qr{i}.jpg"
 
 if __name__ == "__main__":
     keep_alive()
-    main()
+    main() 
+
