@@ -57,7 +57,7 @@ CATEGORY_DETAILS = {
             "✅ SMALL PACK • 15$\n"
             "✅ BIG PACK • 25$"
         ),
-        "image": "qr1.jpg",
+        "image": "qr.jpg",
     },
     "category_2": {
         "name": "ᴍᴏᴍ sᴏɴ",
